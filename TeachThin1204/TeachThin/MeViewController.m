@@ -13,7 +13,7 @@
 #import "MyFamilyViewController.h"
 #import "RaiseMeViewController.h"
 #import "CollectionViewController.h"
-#import "MessageViewController.h"
+#import "ApplyFriendControllerViewController.h"
 
 
 @interface MeViewController ()
@@ -312,8 +312,8 @@
 -(void)messageBtnClick:(id)sender
 {
   
-    MessageViewController * messageVC = [[MessageViewController alloc]init];
-    [self.navigationController pushViewController:messageVC animated:YES];
+#warning 此处为添加
+    [self.navigationController pushViewController:[ApplyFriendControllerViewController shareController] animated:YES];
 }
 - (void)didReceiveMemoryWarning
 {
