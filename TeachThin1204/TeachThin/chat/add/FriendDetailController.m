@@ -100,10 +100,9 @@
                       otherButtonTitles: nil];
         
     }else{
-        [self showMessageAlertView];
+        [self sendFriendApplyAtIndexPath:self.selectedIndexPath
+                                 message:nil];
     }
-
-
 }
 
 #pragma mark - action
@@ -130,30 +129,6 @@
         }
     }
     return NO;
-}
-
-- (void)showMessageAlertView{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"说点啥子吧" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
-    [alert show];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if ([alertView cancelButtonIndex] != buttonIndex) {
-        UITextField *messageTextField = [alertView textFieldAtIndex:0];
-        
-        NSString *messageStr = @"";
-        NSDictionary *loginInfo = [[[EaseMob sharedInstance] chatManager] loginInfo];
-        NSString *username = [loginInfo objectForKey:kSDKUsername];
-        if (messageTextField.text.length > 0) {
-            messageStr = [NSString stringWithFormat:@"%@：%@", username, messageTextField.text];
-        }
-        else{
-            messageStr = [NSString stringWithFormat:@"%@ 邀请你为好友", username];
-        }
-        [self sendFriendApplyAtIndexPath:self.selectedIndexPath
-                                 message:messageStr];
-    }
 }
 
 - (void)sendFriendApplyAtIndexPath:(NSIndexPath *)indexPath

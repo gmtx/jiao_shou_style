@@ -42,7 +42,7 @@
 -(void) doLogin{
     
     NSLog(@">>>>>>>>>>>>>登陆了！！！！");
-    [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:@"lifestyle"
+    [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:@"dream"
                                                         password:@"123456"
                                                       completion:
      ^(NSDictionary *loginInfo, EMError *error) {
@@ -53,6 +53,34 @@
             [EaseMobProcessor login:YES];
          }
      } onQueue:nil];
+}
+
++(void)registUser{
+    [[EaseMob sharedInstance].chatManager asyncRegisterNewAccount:@"dream"
+                                                         password:@"123456"
+                                                   withCompletion:
+     ^(NSString *username, NSString *password, EMError *error) {
+         if (!error) {
+             TTAlertNoTitle(@"注册成功,请登录");
+             [EaseMobProcessor login:NO];
+         }else{
+             switch (error.errorCode) {
+                 case EMErrorServerNotReachable:
+                     TTAlertNoTitle(@"连接服务器失败!");
+                     break;
+                 case EMErrorServerDuplicatedAccount:
+                     TTAlertNoTitle(@"您注册的用户已存在!");
+                     break;
+                 case EMErrorServerTimeout:
+                     TTAlertNoTitle(@"连接服务器超时!");
+                     break;
+                 default:
+                     TTAlertNoTitle(@"注册失败");
+                     break;
+             }
+         }
+     } onQueue:nil];
+
 }
 
 +(void) logout{

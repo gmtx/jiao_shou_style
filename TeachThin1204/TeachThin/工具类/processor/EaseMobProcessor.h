@@ -12,7 +12,7 @@
 
 +(void)    init:(UIApplication *)application
   launchOptions:(NSDictionary *)launchOptions;
-
++(void)registUser;
 +(void) login:(BOOL)delay;
 +(void) logout;
 

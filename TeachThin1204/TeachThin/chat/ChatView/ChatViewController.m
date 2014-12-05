@@ -1049,8 +1049,8 @@
         
         for (int i = 0; i < messages.count; i++) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:weakSelf.dataSource.count+i inSection:0];
-//            [indexPaths insertObject:indexPath atIndex:0];
-            [indexPaths addObject:indexPath];
+            [indexPaths insertObject:indexPath atIndex:0];
+//            [indexPaths addObject:indexPath];
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -1059,7 +1059,7 @@
             [weakSelf.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
             [weakSelf.tableView endUpdates];
             
-            //            [weakSelf.tableView reloadData];
+            //[weakSelf.tableView reloadData];
             
             [weakSelf.tableView scrollToRowAtIndexPath:[indexPaths lastObject] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         });

@@ -22,48 +22,6 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
-//        _headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 40, 40)];
-//        _headerImageView.backgroundColor = [UIColor clearColor];
-//        _headerImageView.clipsToBounds = YES;
-//        _headerImageView.layer.cornerRadius = 5.0;
-//        [self.contentView addSubview:_headerImageView];
-//        
-//        _titleLabel = [[UILabel alloc] init];
-//        _titleLabel.backgroundColor = [UIColor clearColor];
-//        _titleLabel.textColor = [UIColor blackColor];
-//        _titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
-//        [self.contentView addSubview:_titleLabel];
-//        
-//        _contentLabel = [[UILabel alloc] init];
-//        _contentLabel.numberOfLines = 0;
-//        _contentLabel.backgroundColor = [UIColor clearColor];
-//        _contentLabel.textColor = [UIColor grayColor];
-//        _contentLabel.font = [UIFont systemFontOfSize:14.0];
-//        [self.contentView addSubview:_contentLabel];
-//        
-//        _addButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width - 60, 0, 50, 30)];
-//        [_addButton setBackgroundColor:[UIColor colorWithRed:10 / 255.0 green:82 / 255.0 blue:104 / 255.0 alpha:1.0]];
-//        [_addButton setTitle:@"接受" forState:UIControlStateNormal];
-//        _addButton.clipsToBounds = YES;
-//        [_addButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//        _addButton.titleLabel.font = [UIFont systemFontOfSize:14.0];
-//        [_addButton addTarget:self action:@selector(addFriend) forControlEvents:UIControlEventTouchUpInside];
-//        [self.contentView addSubview:_addButton];
-//        
-//        _refuseButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width - 120, 0, 50, 30)];
-//        [_refuseButton setBackgroundColor:[UIColor colorWithRed:87 / 255.0 green:186 / 255.0 blue:205 / 255.0 alpha:1.0]];
-//        [_refuseButton setTitle:@"拒绝" forState:UIControlStateNormal];
-//        _refuseButton.clipsToBounds = YES;
-//        [_refuseButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//        _refuseButton.titleLabel.font = [UIFont systemFontOfSize:14.0];
-//        [_refuseButton addTarget:self action:@selector(refuseFriend) forControlEvents:UIControlEventTouchUpInside];
-//        [self.contentView addSubview:_refuseButton];
-//        
-//        _bottomLineView = [[UIView alloc] init];
-//        _bottomLineView.backgroundColor = [UIColor colorWithRed:207 / 255.0 green:210 /255.0 blue:213 / 255.0 alpha:0.7];
-//        [self.contentView addSubview:_bottomLineView];
-        
         if (_moveContentView == nil) {
             _moveContentView = [[UIView alloc] init];
             _moveContentView.backgroundColor = [UIColor whiteColor];
@@ -95,7 +53,7 @@
 -(void)addSubviewInMoveContentView{
     self.userImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 5, 50, 50)];
     self.userImageView.backgroundColor = [UIColor clearColor];
-    self.userImageView.image = [UIImage imageNamed:@"chatListCellHead.png"];
+    self.userImageView.image = [UIImage imageNamed:@"add_new_friend_icon.png"];
     CALayer *layer = self.userImageView.layer;
     [layer setMasksToBounds:YES];
     [layer setCornerRadius:self.userImageView.frame.size.width/2];

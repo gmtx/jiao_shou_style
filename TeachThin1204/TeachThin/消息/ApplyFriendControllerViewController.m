@@ -39,7 +39,8 @@ static ApplyFriendControllerViewController *controller = nil;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+//    [self.dataSource removeAllObjects];
+//    [self.dataArray removeAllObjects];
     [self.tableView reloadData];
     [self refreshDataSource];
     [self registerNotifications];
@@ -104,12 +105,13 @@ static ApplyFriendControllerViewController *controller = nil;
 {
     if (indexPath.section == 0) {
         static NSString *CellIdentifier = @"ApplyFriendCell";
-        ApplyFriendCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        ApplyFriendCell *cell = (ApplyFriendCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             cell = [[ApplyFriendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             cell.delegate = self;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        
         
         
         NSInteger count = [[[ApplyFriendControllerViewController shareController] dataSource] count];
@@ -129,7 +131,7 @@ static ApplyFriendControllerViewController *controller = nil;
             ApplyEntity *entity = [self.dataSource objectAtIndex:indexPath.row];
             if (entity) {
                 cell.indexPath = indexPath;
-                ApplyStyle applyStyle = [entity.style longValue];
+                ApplyStyle applyStyle = [entity.style integerValue];
                 if(applyStyle == ApplyStyleFriend){
                     NSInteger count = [[[ApplyFriendControllerViewController shareController] dataSource] count];
                     if (count == 0) {
@@ -142,11 +144,13 @@ static ApplyFriendControllerViewController *controller = nil;
                         cell.notifLabel.text = tmpStr;
                        
                     }
-                    cell.nameLabel.text = entity.applicantUsername;
+//                    cell.nameLabel.text = entity.applicantUsername;
+                    NSLog(@">>>>>>>>>>>>>>>>>>%@",entity.applicantUsername);
+                    cell.contentLabel.text = [NSString stringWithFormat:@"%@ 请求加你为好友",entity.applicantUsername];
                 }
                 else{
                 }
-                cell.contentLabel.text = entity.reason;
+               
             }
         }
         return cell;
@@ -220,25 +224,17 @@ static ApplyFriendControllerViewController *controller = nil;
 
 - (void)loadDataSourceFromLocalDB
 {
-//    [self.dataSource removeAllObjects];
+    [self.dataSource removeAllObjects];
     NSDictionary *loginInfo = [[[EaseMob sharedInstance] chatManager] loginInfo];
     NSString *loginName = [loginInfo objectForKey:kSDKUsername];
-    NSLog(@">>>loadDataSourceFromLocalDB>>>>>%@",loginName);
     if(loginName && [loginName length] > 0)
     {
         NSPredicate *deletePredicate = [NSPredicate predicateWithFormat:@"receiverUsername = %@ and style = %d", loginName, ApplyStyleFriend];
-        NSLog(@">>>loadDataSourceFromLocalDB>>>>>%@",loginName);
-        
         [ApplyEntity deleteAllMatchingPredicate:deletePredicate];
-        
         NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"receiverUsername = %@", loginName];
-        NSLog(@">>>searchPredicate>>>>>%@",searchPredicate);
-        
         NSFetchRequest *request = [ApplyEntity requestAllWithPredicate:searchPredicate];
-        NSLog(@">>>request>>>>>%@",request);
         
         NSArray *applyArray = [ApplyEntity executeFetchRequest:request];
-        NSLog(@">>>applyArray>>>>>%@",applyArray);
         [self.dataSource addObjectsFromArray:applyArray];
         NSLog(@">>>self.dataSource>>>>>%ld",self.dataSource.count);
         [self.tableView reloadData];
@@ -608,7 +604,7 @@ static ApplyFriendControllerViewController *controller = nil;
 - (void)reloadDataSource
 {
     [self showHudInView:self.view hint:@"刷新数据..."];
-    [self.dataSource removeAllObjects];
+//    [self.dataSource removeAllObjects];
     
     NSArray *buddyList = [[EaseMob sharedInstance].chatManager buddyList];
     for (EMBuddy *buddy in buddyList) {
@@ -649,7 +645,7 @@ static ApplyFriendControllerViewController *controller = nil;
 
 -(void)refreshDataSource
 {
-    [self.dataArray removeAllObjects];
+//    [self.dataArray removeAllObjects];
     self.dataArray = [self loadDataSource];
     NSLog(@">>>>>>>>>>>%ld",self.dataArray.count);
     [self.tableView reloadData];
