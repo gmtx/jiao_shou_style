@@ -42,7 +42,7 @@
 -(void) doLogin{
     
     NSLog(@">>>>>>>>>>>>>登陆了！！！！");
-    [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:@"dream"
+    [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:@"lifestyle"
                                                         password:@"123456"
                                                       completion:
      ^(NSDictionary *loginInfo, EMError *error) {

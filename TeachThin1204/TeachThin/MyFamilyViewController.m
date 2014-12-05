@@ -8,6 +8,9 @@
 
 #import "MyFamilyViewController.h"
 #import "FamilyDetailViewController.h"
+#import "ChatViewController.h"
+#import "AddFriendController.h"
+#import "ChineseToPinyin.h"
 
 #define originalHeight 60.0f
 #define newHeight 110.0f
@@ -15,7 +18,9 @@
 #define KEY [NSString stringWithFormat:@"%i",indexPath.section]
 
 @interface MyFamilyViewController ()
+@property (strong, nonatomic) NSArray *contactsSource;
 
+@property (strong, nonatomic) UILabel *unapplyCountLabel;
 @end
 
 @implementation MyFamilyViewController
@@ -26,9 +31,15 @@
     if (self) {
         // Custom initialization
         self.title = @"我的家人";
+        self.contactsSource = [NSArray new];
         self.view.backgroundColor = [UIColor whiteColor];
         UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back_arow"] style:UIBarButtonItemStyleBordered target:self action:@selector(backBtnPress) ];
         self.navigationItem.leftBarButtonItem = backItem;
+        
+        UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+        [clearButton setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
+        [clearButton addTarget:self action:@selector(addFriend:) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:clearButton];
     }
     return self;
 }
@@ -36,6 +47,15 @@
 {
     NSInteger index = [self.navigationController.viewControllers indexOfObject:self];
     [self.navigationController popToViewController: [self.navigationController.viewControllers objectAtIndex:(index-1)] animated:YES];
+}
+
+#warning 这里的方法有待完善
+#pragma mark - UIButton方法
+-(void)addFriend:(UIButton *)sender{
+    NSLog(@">>>>>>>>>>>>>>>添加好友啦！！！！");
+    AddFriendController *addController = [[AddFriendController alloc] init];
+    [self.navigationController pushViewController:addController animated:YES];
+    
 }
 
 
@@ -48,6 +68,37 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setLayout];
+    __weak MyFamilyViewController *weakSelf = self;
+    [[[EaseMob sharedInstance] chatManager] asyncFetchBuddyListWithCompletion:^(NSArray *buddyList, EMError *error) {
+        if (!error) {
+            [weakSelf reloadDataSource];
+        }
+    } onQueue:nil];
+
+}
+#pragma mark - dataSource
+
+- (void)reloadDataSource
+{
+    [self showHudInView:self.view hint:@"刷新数据..."];
+    self.contactsSource = [[EaseMob sharedInstance].chatManager buddyList];
+    //    for (EMBuddy *buddy in buddyList) {
+    //        NSLog(@">>>>>>>>>%@",buddy.username);
+    //    }
+    //    for (EMBuddy *buddy in buddyList) {
+    //        if (buddy.followState != eEMBuddyFollowState_NotFollowed) {
+    //            [self.contactsSource addObject:buddy];
+    //        }
+    //    }
+    
+    //    NSDictionary *loginInfo = [[[EaseMob sharedInstance] chatManager] loginInfo];
+    //    NSString *loginUsername = [loginInfo objectForKey:kSDKUsername];
+    //    if (loginUsername && loginUsername.length > 0) {
+    //        EMBuddy *loginBuddy = [EMBuddy buddyWithUsername:loginUsername];
+    //        [self.contactsSource addObject:loginBuddy];
+    //    }
+    [_table reloadData];
+    [self hideHud];
 }
 
 
@@ -77,7 +128,9 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 5;
+    return self.contactsSource.count;
+    NSLog(@">>>>>>>>>%ld",self.contactsSource.count);
+
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -97,6 +150,9 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.MoreBtn.userInteractionEnabled = NO;
         cell.MoreBtn.tag = indexPath.section;
+        EMBuddy *buddy = [self.contactsSource objectAtIndex:indexPath.section];
+        cell.nameLable.text = buddy.username;
+
         [cell.MoreBtn addTarget:self action:@selector(MoreBtnPress:) forControlEvents:UIControlEventTouchUpInside];
     }
     //详细信息点击跳转
@@ -105,7 +161,27 @@
             FamilyDetailViewController *detailVC3 = [[FamilyDetailViewController alloc]init];
             //传值
             [self.navigationController pushViewController:detailVC3 animated:YES];
+        }else if (tag == 0){
+            EMBuddy *buddy = [self.contactsSource objectAtIndex:indexPath.section];
+            NSDictionary *loginInfo = [[[EaseMob sharedInstance] chatManager] loginInfo];
+            NSString *loginUsername = [loginInfo objectForKey:kSDKUsername];
+            if (loginUsername && loginUsername.length > 0) {
+                if ([loginUsername isEqualToString:buddy.username]) {
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"不能跟自己聊天" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                    [alertView show];
+                    
+                    return;
+                }
+            }
+#warning 会话者
+            //        NSLog(@">>>>>>>>>>>>>>>>>%@",buddy.username);
+            ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:buddy.username isGroup:NO];
+            chatVC.title = buddy.username;
+            [self.navigationController pushViewController:chatVC animated:YES];
+            
+            
         }
+
     };
     return cell;
 }

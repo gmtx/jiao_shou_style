@@ -10,6 +10,7 @@
 #import "HomePageViewController.h"
 #import "RegisterViewController.h"
 #import "ForgetPasswordViewController.h"
+#import "EaseMobProcessor.h"
 @interface LoginViewController ()
 
 @end
@@ -141,6 +142,7 @@
 }
 -(void)loginClick:(id)sender
 {
+    [EaseMobProcessor login:YES];
     [tf1 resignFirstResponder];
     [tf2 resignFirstResponder];
     HomePageViewController * hpvc = [[HomePageViewController alloc]init];

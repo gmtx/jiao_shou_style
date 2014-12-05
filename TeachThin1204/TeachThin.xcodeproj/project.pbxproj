@@ -356,6 +356,13 @@
 		A80D3C771A31498200592F82 /* bei_ying.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = A80D3C6F1A31498200592F82 /* bei_ying.jpeg */; };
 		A80D3C781A31498200592F82 /* ChatListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A80D3C711A31498200592F82 /* ChatListCell.m */; };
 		A80D3C791A31498200592F82 /* HitView.m in Sources */ = {isa = PBXBuildFile; fileRef = A80D3C731A31498200592F82 /* HitView.m */; };
+		A80D3C831A314F9500592F82 /* ChineseToPinyin.m in Sources */ = {isa = PBXBuildFile; fileRef = A80D3C7B1A314F9500592F82 /* ChineseToPinyin.m */; };
+		A80D3C841A314F9500592F82 /* bai_tian_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A80D3C7D1A314F9500592F82 /* bai_tian_icon@2x.png */; };
+		A80D3C851A314F9500592F82 /* chat_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A80D3C7E1A314F9500592F82 /* chat_icon@2x.png */; };
+		A80D3C861A314F9500592F82 /* down_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A80D3C7F1A314F9500592F82 /* down_icon@2x.png */; };
+		A80D3C871A314F9500592F82 /* message_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A80D3C801A314F9500592F82 /* message_icon@2x.png */; };
+		A80D3C881A314F9500592F82 /* tel_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A80D3C811A314F9500592F82 /* tel_icon@2x.png */; };
+		A80D3C891A314F9500592F82 /* up_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A80D3C821A314F9500592F82 /* up_icon@2x.png */; };
 		D22772C41A1D7BCD000A4412 /* QuestionnaireViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D22772C31A1D7BCD000A4412 /* QuestionnaireViewController.m */; };
 		D27C41F41A22D41900D27DF5 /* SpecialCrowdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27C41F31A22D41900D27DF5 /* SpecialCrowdViewController.m */; };
 		D27C41F71A22D98700D27DF5 /* WeightTrendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27C41F61A22D98700D27DF5 /* WeightTrendViewController.m */; };
@@ -1026,6 +1033,14 @@
 		A80D3C711A31498200592F82 /* ChatListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatListCell.m; sourceTree = "<group>"; };
 		A80D3C721A31498200592F82 /* HitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HitView.h; sourceTree = "<group>"; };
 		A80D3C731A31498200592F82 /* HitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HitView.m; sourceTree = "<group>"; };
+		A80D3C7A1A314F9500592F82 /* ChineseToPinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChineseToPinyin.h; path = "我的家人/ChineseToPinyin.h"; sourceTree = "<group>"; };
+		A80D3C7B1A314F9500592F82 /* ChineseToPinyin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChineseToPinyin.m; path = "我的家人/ChineseToPinyin.m"; sourceTree = "<group>"; };
+		A80D3C7D1A314F9500592F82 /* bai_tian_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bai_tian_icon@2x.png"; sourceTree = "<group>"; };
+		A80D3C7E1A314F9500592F82 /* chat_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_icon@2x.png"; sourceTree = "<group>"; };
+		A80D3C7F1A314F9500592F82 /* down_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down_icon@2x.png"; sourceTree = "<group>"; };
+		A80D3C801A314F9500592F82 /* message_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message_icon@2x.png"; sourceTree = "<group>"; };
+		A80D3C811A314F9500592F82 /* tel_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tel_icon@2x.png"; sourceTree = "<group>"; };
+		A80D3C821A314F9500592F82 /* up_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "up_icon@2x.png"; sourceTree = "<group>"; };
 		D22772C21A1D7BCD000A4412 /* QuestionnaireViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionnaireViewController.h; sourceTree = "<group>"; };
 		D22772C31A1D7BCD000A4412 /* QuestionnaireViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionnaireViewController.m; sourceTree = "<group>"; };
 		D27C41F21A22D41900D27DF5 /* SpecialCrowdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialCrowdViewController.h; sourceTree = "<group>"; };
@@ -2318,6 +2333,20 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		A80D3C7C1A314F9500592F82 /* family_icon */ = {
+			isa = PBXGroup;
+			children = (
+				A80D3C7D1A314F9500592F82 /* bai_tian_icon@2x.png */,
+				A80D3C7E1A314F9500592F82 /* chat_icon@2x.png */,
+				A80D3C7F1A314F9500592F82 /* down_icon@2x.png */,
+				A80D3C801A314F9500592F82 /* message_icon@2x.png */,
+				A80D3C811A314F9500592F82 /* tel_icon@2x.png */,
+				A80D3C821A314F9500592F82 /* up_icon@2x.png */,
+			);
+			name = family_icon;
+			path = "我的家人/family_icon";
+			sourceTree = "<group>";
+		};
 		D27C41F11A22D3BD00D27DF5 /* 特殊人群 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2807,6 +2836,9 @@
 		D2AB0C1A1A1C8BEE00B86EB8 /* 我的家人 */ = {
 			isa = PBXGroup;
 			children = (
+				A80D3C7C1A314F9500592F82 /* family_icon */,
+				A80D3C7A1A314F9500592F82 /* ChineseToPinyin.h */,
+				A80D3C7B1A314F9500592F82 /* ChineseToPinyin.m */,
 				2E841BD41A2FF12B006CF65C /* MyFamilyViewController.h */,
 				2E841BD51A2FF12B006CF65C /* MyFamilyViewController.m */,
 				2E841BD61A2FF12B006CF65C /* FamilyDetailViewController.h */,
@@ -2969,6 +3001,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "巩鑫";
 				TargetAttributes = {
+					D2AB0B881A1C34F600B86EB8 = {
+						DevelopmentTeam = V3Y4QA5T8Q;
+					};
 					D2AB0BA31A1C34F600B86EB8 = {
 						TestTargetID = D2AB0B881A1C34F600B86EB8;
 					};
@@ -3054,6 +3089,7 @@
 				A80D3BBF1A3146ED00592F82 /* chatFire_audioPlaying0@2x.png in Resources */,
 				A80D3B5E1A3146ED00592F82 /* faceDelete@2x.png in Resources */,
 				A80D3C061A3146ED00592F82 /* chat_receiver_audio_playing002@2x.png in Resources */,
+				A80D3C851A314F9500592F82 /* chat_icon@2x.png in Resources */,
 				A80D3C0E1A3146ED00592F82 /* chat_sender_audio_playing_000@2x.png in Resources */,
 				D2AB0B971A1C34F600B86EB8 /* InfoPlist.strings in Resources */,
 				A80D3B591A3146ED00592F82 /* delete@2x.png in Resources */,
@@ -3088,6 +3124,7 @@
 				A80D3B451A3146ED00592F82 /* add@2x.png in Resources */,
 				A80D3C0F1A3146ED00592F82 /* chat_sender_audio_playing_001.png in Resources */,
 				A80D3B551A3146ED00592F82 /* callBg@2x.png in Resources */,
+				A80D3C841A314F9500592F82 /* bai_tian_icon@2x.png in Resources */,
 				A80D3B7F1A3146ED00592F82 /* chatBar_more_camera@2x.png in Resources */,
 				A80D3B7C1A3146ED00592F82 /* chatBar_colorMore_video@2x.png in Resources */,
 				A80D3BFE1A3146ED00592F82 /* chat_location_detail_disclosureHL@2x.png in Resources */,
@@ -3119,6 +3156,7 @@
 				A80D3B651A3146ED00592F82 /* chatBar_faceSelected@2x.png in Resources */,
 				A80D3BF81A3146ED00592F82 /* chatBar_textBg@2x.png in Resources */,
 				A80D3BE71A3146ED00592F82 /* VoiceSearchFeedback017@2x.png in Resources */,
+				A80D3C861A314F9500592F82 /* down_icon@2x.png in Resources */,
 				A80D3B6E1A3146ED00592F82 /* chatBar_record.png in Resources */,
 				2E841BA01A2FEFA9006CF65C /* 未开始@2x.png in Resources */,
 				A80D3C1E1A3146ED00592F82 /* titleBar@2x.png in Resources */,
@@ -3154,6 +3192,7 @@
 				A80D3B4B1A3146ED00592F82 /* FriendDetailController.xib in Resources */,
 				A80D3C091A3146ED00592F82 /* chat_receiver_audio_playing_full.png in Resources */,
 				A80D3BEC1A3146ED00592F82 /* VoiceSearchFeedback020.png in Resources */,
+				A80D3C891A314F9500592F82 /* up_icon@2x.png in Resources */,
 				A80D3B7A1A3146ED00592F82 /* chatBar_colorMore_photo@2x.png in Resources */,
 				2E841BA11A2FEFA9006CF65C /* 写吧.png in Resources */,
 				A80D3BE11A3146ED00592F82 /* VoiceSearchFeedback014@2x.png in Resources */,
@@ -3196,6 +3235,7 @@
 				A80D3C121A3146ED00592F82 /* chat_sender_audio_playing_002@2x.png in Resources */,
 				A80D3BED1A3146ED00592F82 /* VoiceSearchFeedback020@2x.png in Resources */,
 				A80D3B631A3146ED00592F82 /* chatBar_face@2x.png in Resources */,
+				A80D3C881A314F9500592F82 /* tel_icon@2x.png in Resources */,
 				A80D3C0C1A3146ED00592F82 /* chat_receiver_bg@2x.png in Resources */,
 				A80D3C141A3146ED00592F82 /* chat_sender_audio_playing_003@2x.png in Resources */,
 				A80D3C221A3146ED00592F82 /* tabbar_chatsHL@2x.png in Resources */,
@@ -3207,6 +3247,7 @@
 				A80D3BD31A3146ED00592F82 /* VoiceSearchFeedback007@2x.png in Resources */,
 				A80D3BFD1A3146ED00592F82 /* chat_location_detail_disclosureHL.png in Resources */,
 				A80D3BCE1A3146ED00592F82 /* VoiceSearchFeedback005.png in Resources */,
+				A80D3C871A314F9500592F82 /* message_icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3366,6 +3407,7 @@
 				A80D3C551A3146ED00592F82 /* NSString+Valid.m in Sources */,
 				D2AB0C161A1C800800B86EB8 /* SetViewController.m in Sources */,
 				2E841B841A2FEF24006CF65C /* Datetime.m in Sources */,
+				A80D3C831A314F9500592F82 /* ChineseToPinyin.m in Sources */,
 				D2B755011A271C6A003D4E51 /* AFURLConnectionOperation.m in Sources */,
 				A80D3C381A3146ED00592F82 /* MWTapDetectingImageView.m in Sources */,
 				A80D3C3D1A3146ED00592F82 /* PSTCollectionView.m in Sources */,
@@ -3540,8 +3582,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Xin Gong (768NGZ4VP8)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TeachThin",
@@ -3550,12 +3592,14 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TeachThin/TeachThin-Prefix.pch";
 				INFOPLIST_FILE = "TeachThin/TeachThin-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TeachThin/工具类/EaseMobSDK/lib",
 					"$(PROJECT_DIR)/TeachThin/chat/utils/3rdparty/UMeng",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -3565,7 +3609,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Xin Gong (768NGZ4VP8)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TeachThin",
@@ -3574,12 +3619,14 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TeachThin/TeachThin-Prefix.pch";
 				INFOPLIST_FILE = "TeachThin/TeachThin-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TeachThin/工具类/EaseMobSDK/lib",
 					"$(PROJECT_DIR)/TeachThin/chat/utils/3rdparty/UMeng",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
