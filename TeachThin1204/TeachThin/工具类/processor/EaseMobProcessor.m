@@ -20,15 +20,30 @@
     //NSLog(@">>>>>>ease mob config: %@, %@", apnsCertName, [AppStatus sharedInstance].easemobAppKey);
 #warning SDK注册 APNS文件的名字, 需要与后台上传证书时的名字一一对应
     NSString *apnsCertName = nil;
+//#if DEBUG
+//    apnsCertName = @"jiaoshou";
+//#else
+//    apnsCertName = @"jiaoshou";
+//#endif
 #if DEBUG
     apnsCertName = @"chatdemoui_dev";
 #else
     apnsCertName = @"chatdemoui";
 #endif
     [[EaseMob sharedInstance] registerSDKWithAppKey:@"easemob-demo#chatdemoui" apnsCertName:apnsCertName];
+//    [[EaseMob sharedInstance] registerSDKWithAppKey:@"1309#jiaoshou" apnsCertName:apnsCertName];
     [[EaseMob sharedInstance] enableBackgroundReceiveMessage];
     [[EaseMob sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
+    [EaseMobProcessor registerRemoteNotification];
+#warning 注册为SDK的ChatManager的delegate (及时监听到申请和通知)
+//    [[EaseMob sharedInstance].chatManager removeDelegate:self];
     [[EaseMob sharedInstance].chatManager addDelegate:[EaseMobProcessor sharedInstance] delegateQueue:nil];
+#warning 如果使用MagicalRecord, 要加上这句初始化MagicalRecord
+    //demo coredata, .pch中有相关头文件引用
+    [MagicalRecord setupCoreDataStackWithStoreNamed:[NSString stringWithFormat:@"%@.sqlite", @"UIDemo"]];
+    
+    [EaseMobProcessor loginStateChange:nil];
+    
 }
 
 +(void) login:(BOOL)delay{

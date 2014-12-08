@@ -437,6 +437,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 -(void)sureBtnClick:(id)sender
 {
     NSLog(@"sure");
+    
     QuestionnaireViewController * Qvc = [[QuestionnaireViewController alloc]init];
     [self.navigationController pushViewController:Qvc animated:YES];
 }

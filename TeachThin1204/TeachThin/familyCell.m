@@ -13,6 +13,7 @@
 - (void)awakeFromNib
 {
     // Initialization code
+    self.MoreBtn.backgroundColor = [UIColor purpleColor];
     _userImg.layer.cornerRadius = 25.;
     
     UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(BtnPress:)];
@@ -38,6 +39,25 @@
         self.BtntapMethed(gesture.view.tag);
     }
 }
+
+-(void)renderFriendWithBuddyInfo:(EMBuddy *)buddy{
+    self.phoneLable.text = [NSString stringWithFormat:@"手机号：%@",buddy.username];
+
+}
+
+- (IBAction)moreBtnClick:(UIButton *)sender {
+//    if (isOpen) {
+//        [targetCell.MoreBtn setImage:[UIImage imageNamed:@"up_icon"] forState:UIControlStateNormal];
+//    }else{
+//        [targetCell.MoreBtn setImage:[UIImage imageNamed:@"down_icon"] forState:UIControlStateNormal];
+//    }
+    if (sender.tag == 900) {
+        NSLog(@">>>>>>>>>sender>点击了>>>>>>>");
+    }
+    
+
+}
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {

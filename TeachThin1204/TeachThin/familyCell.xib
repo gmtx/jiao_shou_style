@@ -95,13 +95,16 @@
                         </subviews>
                         <color key="backgroundColor" red="0.20838921015280659" green="0.18044164574083058" blue="0.21694548233695654" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ycZ-bm-bky">
+                    <button opaque="NO" tag="900" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ycZ-bm-bky">
                         <rect key="frame" x="262" y="4" width="50" height="50"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <state key="normal" image="down_icon">
                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <connections>
+                            <action selector="moreBtnClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="fH0-TR-IIX"/>
+                        </connections>
                     </button>
                 </subviews>
             </tableViewCellContentView>
@@ -120,7 +123,7 @@
     <resources>
         <image name="bai_tian_icon" width="30" height="30"/>
         <image name="chat_icon" width="32" height="30"/>
-        <image name="down_icon" width="35" height="35"/>
+        <image name="down_icon" width="20" height="20"/>
         <image name="message_icon" width="41" height="33"/>
         <image name="tel_icon" width="21" height="30"/>
     </resources>

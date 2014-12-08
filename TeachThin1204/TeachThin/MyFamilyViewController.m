@@ -151,8 +151,7 @@
         cell.MoreBtn.userInteractionEnabled = NO;
         cell.MoreBtn.tag = indexPath.section;
         EMBuddy *buddy = [self.contactsSource objectAtIndex:indexPath.section];
-        cell.nameLable.text = buddy.username;
-
+        [cell renderFriendWithBuddyInfo:buddy];
         [cell.MoreBtn addTarget:self action:@selector(MoreBtnPress:) forControlEvents:UIControlEventTouchUpInside];
     }
     //详细信息点击跳转
@@ -192,18 +191,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *targetCell = [tableView cellForRowAtIndexPath:indexPath];
+    familyCell *targetCell = (familyCell *)[tableView cellForRowAtIndexPath:indexPath];
+    UIButton *btn  = (UIButton *)[targetCell viewWithTag:900];
     if (targetCell.frame.size.height < newHeight){
-        
         [_dicClicked setObject:isOpen forKey:KEY];
+//        [btn setImage:[UIImage imageNamed:@"up_icon"] forState:UIControlStateNormal];
+//        btn.imageView.transform = CGAffineTransformMakeRotation(M_PI_2);
     }
     else{
         [_dicClicked removeObjectForKey:KEY];
     }
     [self.table reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
-
-
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

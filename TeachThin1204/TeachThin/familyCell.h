@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "EMBuddy.h"
 @interface familyCell : UITableViewCell
 
 @property(nonatomic,strong)void(^BtntapMethed)(NSInteger);
@@ -22,6 +22,6 @@
 @property (weak, nonatomic) IBOutlet UIView *View3;
 @property (weak, nonatomic) IBOutlet UIView *View4;
 
-
+-(void)renderFriendWithBuddyInfo:(EMBuddy *)buddy;
 
 @end

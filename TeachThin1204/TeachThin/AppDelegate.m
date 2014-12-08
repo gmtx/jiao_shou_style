@@ -24,16 +24,8 @@
     [EaseMobProcessor init:application launchOptions:launchOptions];
     
     
-    [EaseMobProcessor registerRemoteNotification];
-#warning 注册为SDK的ChatManager的delegate (及时监听到申请和通知)
-    [[EaseMob sharedInstance].chatManager removeDelegate:self];
-    [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
     
-#warning 如果使用MagicalRecord, 要加上这句初始化MagicalRecord
-    //demo coredata, .pch中有相关头文件引用
-    [MagicalRecord setupCoreDataStackWithStoreNamed:[NSString stringWithFormat:@"%@.sqlite", @"UIDemo"]];
-    
-    [EaseMobProcessor loginStateChange:nil];
+
     
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
