@@ -7,8 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HomePageViewController.h"
 
 @interface EaseMobProcessor : NSObject<IChatManagerDelegate>
+
+@property (nonatomic, strong) HomePageViewController *homeVC;
 
 @property (nonatomic, copy) NSString *userName;
 @property (nonatomic, copy) NSString *pwd;
@@ -21,11 +24,6 @@
 
 
 + (void)registerRemoteNotification;
-+(void)loginStateChange:(NSNotification *)notification;
-
-
-+(NSInteger) unreadSupportMessageCount;
-+(void) clearUnreadMessage:(EMConversation *)conversation;
 
 +(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken;
 +(void) registeDeviceToken:(UIApplication *)application deviceToken:(NSData *)deviceToken;

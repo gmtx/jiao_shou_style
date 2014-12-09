@@ -18,20 +18,19 @@
 #define KEY [NSString stringWithFormat:@"%i",indexPath.section]
 
 @interface MyFamilyViewController ()
-@property (strong, nonatomic) NSArray *contactsSource;
+@property (strong, nonatomic) NSMutableArray *contactsSource;
 
-@property (strong, nonatomic) UILabel *unapplyCountLabel;
 @end
 
 @implementation MyFamilyViewController
-
+static NSString *contentIndentifer = @"Container";
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
         self.title = @"我的家人";
-        self.contactsSource = [NSArray new];
+//        self.contactsSource = [NSMutableArray new];
         self.view.backgroundColor = [UIColor whiteColor];
         UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"backbtn"] style:UIBarButtonItemStyleBordered target:self action:@selector(backBtnPress) ];
         self.navigationItem.leftBarButtonItem = backItem;
@@ -80,7 +79,7 @@
 - (void)reloadDataSource
 {
     [self showHudInView:self.view hint:@"刷新数据..."];
-    self.contactsSource = [[EaseMob sharedInstance].chatManager buddyList];
+    self.contactsSource = [NSMutableArray arrayWithArray:[[EaseMob sharedInstance].chatManager buddyList]];
     //    for (EMBuddy *buddy in buddyList) {
     //        NSLog(@">>>>>>>>>%@",buddy.username);
     //    }
@@ -98,6 +97,7 @@
     //    }
     [self.table reloadData];
     [self hideHud];
+    NSLog(@">>>>>>>>>%ld",self.contactsSource.count);
 }
 
 
@@ -109,11 +109,12 @@
     _mHeight = originalHeight;
     _sectionIndex = 0;
     _dicClicked = [[NSMutableDictionary alloc]initWithCapacity:3];
-    _table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
-    _table.delegate = self;
-    _table.dataSource = self;
-    _table.separatorStyle =UITableViewCellSeparatorStyleSingleLine;
-    [self.view addSubview:_table];
+    self.table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
+    self.table.delegate = self;
+    self.table.dataSource = self;
+    self.table.separatorStyle =UITableViewCellSeparatorStyleSingleLine;
+    [self.table registerClass:[familyCell class] forCellReuseIdentifier:contentIndentifer];
+    [self.view addSubview:self.table];
 }
 
 - (void)didReceiveMemoryWarning
@@ -128,10 +129,10 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    NSLog(@">>>>111111111111111111111>>>>>%ld",self.contactsSource.count);
     return self.contactsSource.count;
-    NSLog(@">>>>>>>>>%ld",self.contactsSource.count);
 }
-
+//
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 1;
@@ -139,12 +140,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *contentIndentifer = @"Container";
-     UINib *nib=[UINib nibWithNibName:@"familyCell" bundle:nil];
-    [tableView registerNib:nib forCellReuseIdentifier:contentIndentifer];
-    familyCell *cell ;
-    if (cell == nil) {
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"familyCell" owner:self options:nil] lastObject];
+//    UINib *nib=[UINib nibWithNibName:@"familyCell" bundle:nil];
+//    [self.table registerNib:nib forCellReuseIdentifier:contentIndentifer];
+//    familyCell *cell;
+        familyCell *cell = [tableView dequeueReusableCellWithIdentifier:contentIndentifer];
+//    if (cell == nil) {
+//        cell = [[[NSBundle mainBundle] loadNibNamed:@"familyCell" owner:self options:nil] lastObject];
         cell.layer.masksToBounds = YES;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.MoreBtn.userInteractionEnabled = NO;
@@ -152,7 +153,7 @@
         EMBuddy *buddy = [self.contactsSource objectAtIndex:indexPath.section];
         [cell renderFriendWithBuddyInfo:buddy];
         [cell.MoreBtn addTarget:self action:@selector(MoreBtnPress:) forControlEvents:UIControlEventTouchUpInside];
-    }
+//    }
     //详细信息点击跳转
     cell.BtntapMethed = ^(NSInteger tag){
         if(tag==3){
@@ -217,12 +218,41 @@
     return YES;
 }
 //编辑单元格所执行的操作
--(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];//移除tableView中的数据
-    //删除数据
-}
+//-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];//移除tableView中的数据
+//    //删除数据
+//}
+// Override to support conditional editing of the table view.
 
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSDictionary *loginInfo = [[[EaseMob sharedInstance] chatManager] loginInfo];
+        NSString *loginUsername = [loginInfo objectForKey:kSDKUsername];
+        EMBuddy *buddy = [self.contactsSource objectAtIndex:indexPath.section];
+        if ([buddy.username isEqualToString:loginUsername]) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"不能删除自己" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alertView show];
+            
+            return;
+        }
+        [self.contactsSource objectAtIndex:indexPath.section];
+//        [self.contactsSource removeObject:buddy];
+        [self.table deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+//        [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationNone];
+        [self.table reloadData];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            EMError *error;
+            [[EaseMob sharedInstance].chatManager removeBuddy:buddy.username removeFromRemote:YES error:&error];
+            if (!error) {
+                [[EaseMob sharedInstance].chatManager removeConversationByChatter:buddy.username deleteMessages:YES];
+            }
+        });
+    }
+}
 
 -(void)MoreBtnPress:(UIButton *)btn
 {

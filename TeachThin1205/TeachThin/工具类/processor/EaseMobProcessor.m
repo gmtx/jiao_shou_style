@@ -8,6 +8,9 @@
 
 #import "EaseMobProcessor.h"
 #import "ApplyFriendControllerViewController.h"
+#import "LoginViewController.h"
+#import "AppDelegate.h"
+#import "ManageVC.h"
 @interface  EaseMobProcessor()
 
 @property (nonatomic, strong) NSOperationQueue *queue;
@@ -16,14 +19,25 @@
 @implementation EaseMobProcessor
 +(void) init:(UIApplication *)application launchOptions:(NSDictionary *)launchOptions{
     
+[[NSNotificationCenter defaultCenter] addObserver:[EaseMobProcessor sharedInstance]
+                                             selector:@selector(loginStateChange:)
+                                                 name:KNOTIFICATION_LOGINCHANGE
+                                               object:nil];
+
 #warning SDK注册 APNS文件的名字, 需要与后台上传证书时的名字一一对应
+//    NSString *apnsCertName = nil;
+//#if DEBUG
+//    apnsCertName = @"jiaoshou";
+//#else
+//    apnsCertName = @"jiaoshou";
+//#endif
     NSString *apnsCertName = nil;
 #if DEBUG
-    apnsCertName = @"jiaoshou";
+    apnsCertName = @"chatdemoui_dev";
 #else
-    apnsCertName = @"jiaoshou";
+    apnsCertName = @"chatdemoui";
 #endif
-    [[EaseMob sharedInstance] registerSDKWithAppKey:@"1309#jiaoshou" apnsCertName:apnsCertName];
+    [[EaseMob sharedInstance] registerSDKWithAppKey:@"easemob-demo#chatdemoui" apnsCertName:apnsCertName];
     
 #if DEBUG
     [[EaseMob sharedInstance] enableUncaughtExceptionHandler];
@@ -42,7 +56,8 @@
     //demo coredata, .pch中有相关头文件引用
     [MagicalRecord setupCoreDataStackWithStoreNamed:[NSString stringWithFormat:@"%@.sqlite", @"UIDemo"]];
     
-    [EaseMobProcessor loginStateChange:nil];
+//    [[EaseMobProcessor sharedInstance] loginStateChange:nil];
+    NSLog(@">>>>>>>>>>>>>>>>>>>>init ease mob");
 
 }
 
@@ -61,12 +76,32 @@
                                                         password:pwd
                                                       completion:
      ^(NSDictionary *loginInfo, EMError *error) {
+//         if (loginInfo && !error) {
+//             NSLog(@">>>>>>>>>>%@",loginInfo);
+//            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@YES];
+//         }else {
+//            [EaseMobProcessor login:YES WithUserName:userName pwd:pwd];
+//             [AppStatus saveAppStatus];
+//         }
          if (loginInfo && !error) {
-             NSLog(@">>>>>>>>>>%@",loginInfo);
-            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@YES];
+             [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@YES];
          }else {
-            [EaseMobProcessor login:YES WithUserName:userName pwd:pwd];
+             switch (error.errorCode) {
+                 case EMErrorServerNotReachable:
+                     TTAlertNoTitle(@"连接服务器失败!");
+                     break;
+                 case EMErrorServerAuthenticationFailure:
+                     TTAlertNoTitle(@"用户名或密码错误");
+                     break;
+                 case EMErrorServerTimeout:
+                     TTAlertNoTitle(@"连接服务器超时!");
+                     break;
+                 default:
+                     TTAlertNoTitle(@"登录失败");
+                     break;
+             }
          }
+
      } onQueue:nil];
 }
 
@@ -135,14 +170,27 @@
 
 #pragma mark - private
 
-+(void)loginStateChange:(NSNotification *)notification
+-(void)loginStateChange:(NSNotification *)notification
 {
+    
+    NSLog(@">>>>>>>>>>>>>>>>登录状态改变！！！！！");
     BOOL isAutoLogin = [[[EaseMob sharedInstance] chatManager] isAutoLoginEnabled];
     BOOL loginSuccess = [notification.object boolValue];
     
     if (isAutoLogin || loginSuccess) {
         [[ApplyFriendControllerViewController shareController] loadDataSourceFromLocalDB];
+//        if ([EaseMobProcessor sharedInstance].homeVC == nil) {
+//            [EaseMobProcessor sharedInstance].homeVC = [[HomePageViewController alloc] init];
+//            nav = [[UINavigationController alloc] initWithRootViewController:[EaseMobProcessor sharedInstance].homeVC];
+//        }else{
+//            nav  = [EaseMobProcessor sharedInstance].homeVC.navigationController;
+//        }
+    }else{
+//        [EaseMobProcessor sharedInstance].homeVC = nil;
+//        LoginViewController *loginController = [[LoginViewController alloc] init];
+//        nav = [[UINavigationController alloc] initWithRootViewController:loginController];
     }
+    
 }
 
 +(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken{
@@ -174,7 +222,9 @@
     // 让SDK得到App目前的各种状态，以便让SDK做出对应当前场景的操作
     [[EaseMob sharedInstance] applicationDidBecomeActive:application];
     NSLog(@">>>>>>>applicationDidBecomeActive>>>>>>>>>>>");
-    [EaseMobProcessor login:NO WithUserName:[EaseMobProcessor sharedInstance].userName pwd:[EaseMobProcessor sharedInstance].pwd];
+    if ([ManageVC sharedManage].LoginState == YES) {
+         [EaseMobProcessor login:NO WithUserName:[EaseMobProcessor sharedInstance].userName pwd:[EaseMobProcessor sharedInstance].pwd];
+    }
 }
 
 +(void) applicationWillTerminate:(UIApplication *)application{

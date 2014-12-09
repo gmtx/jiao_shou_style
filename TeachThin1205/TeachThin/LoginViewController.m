@@ -12,6 +12,7 @@
 #import "ForgetPasswordViewController.h"
 #import "ManageVC.h"
 #import "EaseMobProcessor.h"
+#import "ApplyFriendControllerViewController.h"
 @interface LoginViewController ()
 
 @end
@@ -156,7 +157,7 @@
                                                          
 
 }
--(void)loginClick:(id)sender,{
+-(void)loginClick:(id)sender{
     [tf1 resignFirstResponder];
     [tf2 resignFirstResponder];
     [MBHUDView hudWithBody:@"加载中" type:MBAlertViewHUDTypeActivityIndicator hidesAfter:100000.0 show:YES];
@@ -181,18 +182,25 @@
             [self removeNonetView];
             //加载框消失
             [MBHUDView dismissCurrentHUD];
-            NSLog(@"^^^^^%@",obj);
+            NSLog(@"^^^^^>>>>>>>>>>>>>%@",obj);
             NSString * result = [obj valueForKey:@"code"];
             NSString * uid = [obj valueForKey:@"uid"];
             NSString * reason = [obj valueForKey:@"errmsg"];
             if ([result isEqualToString:@"01"]) {
                 NSLog(@"登录成功");
-//                [EaseMobProcessor registUserWithUserName:username pwd:password];
-                [EaseMobProcessor login:NO WithUserName:username pwd:password];
+                    [[EaseMob sharedInstance].chatManager asyncLogoffWithCompletion:^(NSDictionary *info, EMError *error) {
+                        [[ApplyFriendControllerViewController shareController] clear];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@NO];
+                    } onQueue:nil];
+
                 [ManageVC sharedManage].uid = [NSString stringWithFormat:@"%@",uid];
                 [[NSUserDefaults standardUserDefaults] setObject:uid forKey:@"uid"];
                 [ManageVC sharedManage].LoginState = YES;
-                 [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"islogin"];                
+                 [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"islogin"];
+                
+                [[EaseMob sharedInstance].chatManager setNickname:username];
+                [EaseMobProcessor login:NO WithUserName:username pwd:password];
+                
                 HomePageViewController * hpvc = [[HomePageViewController alloc]init];
                 [self.navigationController pushViewController:hpvc animated:YES];
             }else if([result isEqualToString:@"00"])
@@ -207,16 +215,7 @@
             [MBHUDView dismissCurrentHUD];
             [self showNoNetView];//显示没有网络页面
         };
-        
-        
-        
     }
-    
-    
-    
-    
-  
-    
 }
 -(void)forgetClick:(id)sender
 {
@@ -295,28 +294,12 @@
 {
     NSLog(@"________reload____________");
     [MBHUDView hudWithBody:@"加载中" type:MBAlertViewHUDTypeActivityIndicator hidesAfter:100000.0 show:YES];
-    
 }
-
-
-
-
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

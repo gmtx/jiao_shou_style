@@ -39,9 +39,6 @@ static ApplyFriendControllerViewController *controller = nil;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//    [self.dataSource removeAllObjects];
-//    [self.dataArray removeAllObjects];
-//    [self.tableView reloadData];
     [self refreshDataSource];
     [self registerNotifications];
     
@@ -143,15 +140,15 @@ static ApplyFriendControllerViewController *controller = nil;
                         cell.notifLabel.hidden = NO;
                         NSString *tmpStr = [NSString stringWithFormat:@"%ld", count];
                         cell.notifLabel.text = tmpStr;
-                       
+                        
                     }
-//                    cell.nameLabel.text = entity.applicantUsername;
+                    //                    cell.nameLabel.text = entity.applicantUsername;
                     NSLog(@">>>>>>>>>>>>>>>>>>%@",entity.applicantUsername);
                     cell.contentLabel.text = [NSString stringWithFormat:@"%@ 请求加你为好友",entity.applicantUsername];
                 }
                 else{
                 }
-               
+                
             }
         }
         return cell;
@@ -225,7 +222,7 @@ static ApplyFriendControllerViewController *controller = nil;
 
 - (void)loadDataSourceFromLocalDB
 {
-//
+    //
     [self.dataSource removeAllObjects];
     NSDictionary *loginInfo = [[[EaseMob sharedInstance] chatManager] loginInfo];
     NSString *loginName = [loginInfo objectForKey:kSDKUsername];
@@ -534,7 +531,7 @@ static ApplyFriendControllerViewController *controller = nil;
 //{
 //#if !TARGET_IPHONE_SIMULATOR
 //    [self playSoundAndVibration];
-//    
+//
 //    BOOL isAppActivity = [[UIApplication sharedApplication] applicationState] == UIApplicationStateActive;
 //    if (!isAppActivity) {
 //        //发送本地推送
@@ -648,7 +645,7 @@ static ApplyFriendControllerViewController *controller = nil;
 
 -(void)refreshDataSource
 {
-    [self.dataArray removeAllObjects];
+    //    [self.dataArray removeAllObjects];
     self.dataArray = [self loadDataSource];
     NSLog(@">>>>>>>>>>>%ld",self.dataArray.count);
     [self.tableView reloadData];
@@ -662,5 +659,4 @@ static ApplyFriendControllerViewController *controller = nil;
         self.tableView.tableHeaderView = nil;
     }
 }
-
 @end

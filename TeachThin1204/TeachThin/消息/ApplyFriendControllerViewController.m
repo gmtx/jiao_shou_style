@@ -39,9 +39,6 @@ static ApplyFriendControllerViewController *controller = nil;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//    [self.dataSource removeAllObjects];
-//    [self.dataArray removeAllObjects];
-//    [self.tableView reloadData];
     [self refreshDataSource];
     [self registerNotifications];
     
@@ -648,7 +645,7 @@ static ApplyFriendControllerViewController *controller = nil;
 
 -(void)refreshDataSource
 {
-    [self.dataArray removeAllObjects];
+//    [self.dataArray removeAllObjects];
     self.dataArray = [self loadDataSource];
     NSLog(@">>>>>>>>>>>%ld",self.dataArray.count);
     [self.tableView reloadData];

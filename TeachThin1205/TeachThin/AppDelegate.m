@@ -16,6 +16,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSLog(@">>>>>>>>>>>>>>>>>>>>>>>>didFinishLaunchingWithOptions>>>>>>>>>>>>>>>>>>>>>>>>");
+    
+    
     [NSThread sleepForTimeInterval:1.5];
     [SMS_SDK registerApp:@"43ebece39bff " withSecret:@"ec29e1c8e7df7ee7c3d6c158ca7de26a"];
     [SMS_SDK enableAppContactFriends:NO];
@@ -53,11 +56,9 @@
             self.window.rootViewController = hpnc;
             [ManageVC sharedManage].LoginState = YES;
         }
-        
-        
     }
     
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"First"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"First"];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
